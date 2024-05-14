@@ -27,6 +27,17 @@ const routes: Routes = [
       }
     }
   },
+  {
+    path: 'letter-registry-edit/:id',
+    component: LetterRegistryCreateComponent,
+    canActivate: [NgxPermissionsGuard],
+    data: {
+      permissions: {
+        only: ['user_permission_list'],
+        redirectTo: '/pages/dashboard'
+      }
+    }
+  },
 ];
 
 @NgModule({

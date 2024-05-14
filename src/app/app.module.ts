@@ -28,6 +28,7 @@ import { AfterLoginService } from './services/after-login.service';
 import {BeforeLoginService} from "./services/before-login.service";
 import { AuthInterceptor } from './auth/auth.interceptor';
 import {AnimateOnScrollModule} from "ng2-animate-on-scroll";
+import {ToastrModule} from "ngx-toastr";
 
 @NgModule({
   declarations: [AppComponent],
@@ -52,6 +53,7 @@ import {AnimateOnScrollModule} from "ng2-animate-on-scroll";
     SnotifyModule,
     NgxPermissionsModule.forRoot(),
     AnimateOnScrollModule.forRoot(),
+    ToastrModule.forRoot(),
   ],
   bootstrap: [AppComponent],
   providers: [

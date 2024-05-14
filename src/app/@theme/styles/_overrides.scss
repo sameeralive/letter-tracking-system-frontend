@@ -59,7 +59,7 @@ nb-card-body {
 }
 
 .bg {
-  background: url("~assets/images/d-bg.jpg") center center no-repeat;
+  //background: url("~assets/images/d-bg.jpg") center center no-repeat;
   background-size: cover;
   margin: 0 !important;
 }
@@ -160,4 +160,9 @@ nb-card-body {
       padding-bottom: 4px;
     }
   }
+}
+
+ng-select.ng-touched.ng-invalid .ng-select-container,
+.ng-touched.ng-invalid{
+  border-color: #FF586B !important;
 }

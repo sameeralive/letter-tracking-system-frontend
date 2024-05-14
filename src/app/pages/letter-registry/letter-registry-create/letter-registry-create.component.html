@@ -4,22 +4,21 @@
     <nb-card>
       <nb-card-header>Create Letter Registry</nb-card-header>
       <nb-card-body>
-        <form #rForm=ngForm (ngSubmit)="rForm.form.valid && submit()">
+        <form #rForm=ngForm (ngSubmit)="submit(rForm)">
           <fieldset [disabled]="isDisabled">
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label class="w-100">Date</label>
-                <input class="w-100" nbInput fullWidth name="date" #date="ngModel" [nbDatepicker]="formpicker"
+                <input class="w-100" nbInput fullWidth name="date" #date="ngModel" [nbDatepicker]="formpicker" required
                        [(ngModel)]="registry.date">
                 <nb-datepicker #formpicker></nb-datepicker>
-<!--                <div class="validation-msg" *ngIf="rForm.submitted && date.invalid">-->
-<!--                  <div *ngIf="date.errors?.['required']">This field is required</div>-->
-<!--                </div>-->
+                <p class="mt-1 text-danger" [hidden]="!error?.date">Date is required</p>
+
               </div>
               <div class="col-md-6 mb-3">
                 <label>Portfolio Number</label>
                 <input type="text" nbInput fullWidth name="portfolio_number" #portfolio_number="ngModel"
-                       [(ngModel)]="registry.portfolio_number">
+                       [(ngModel)]="registry.portfolio_number" required>
 <!--                <div class="validation-msg" *ngIf="rForm.submitted && portfolio_number.invalid">-->
 <!--                  <div *ngIf="portfolio_number.errors?.['required']">This field is required</div>-->
 <!--                </div>-->
@@ -27,7 +26,7 @@
               <div class="col-md-6 mb-3">
                 <label>Letter Ref Number</label>
                 <input type="text" nbInput fullWidth name="letter_ref_number" #letter_ref_number="ngModel"
-                       [(ngModel)]="registry.letter_ref_number">
+                       [(ngModel)]="registry.letter_ref_number" required>
 <!--                <div class="validation-msg" *ngIf="rForm.submitted && letter_ref_number.invalid">-->
 <!--                  <div *ngIf="letter_ref_number.errors?.['required']">This field is required</div>-->
 <!--                </div>-->
@@ -61,6 +60,9 @@
 
               <div class="col-md-6 mb-3">
                 <label>Letter</label>
+                <div *ngIf="registry.id > 0 && registry.letter != ''">
+                  <a [href]="'http://localhost:8000/storage/letters/' + existingData.letter" target="_blank">{{existingData.letter}}</a>
+                </div>
                 <input type="file" (change)="uploadLetter($event)" nbInput fullWidth name="letter" [(ngModel)]="registry.letter">
               </div>
 
@@ -75,13 +77,17 @@
               <div class="col-md-12 mb-3"></div>
               <div class="col-md-6 mb-3">
                 <label>Reply Letter</label>
+                <div  *ngIf="registry.id > 0 && registry.reply_letter != ''">
+                  <a [href]="'http://localhost:8000/storage/letters/' + existingData.reply_letter" target="_blank">{{existingData.reply_letter}}</a>
+                </div>
                 <input type="file" (change)="uploadReplyLetter($event)" nbInput fullWidth name="reply_letter" [(ngModel)]="registry.reply_letter">
               </div>
 
 
-              <div class="col-md-12 text-right" *ngIf="!isDisabled">
+              <div class="col-md-12 text-right" >
                 <hr>
-                <button class="ml-2" type="submit" nbButton status="success">
+                <button class="ml-2" type="submit" nbButton status="success" [disabled]="isDisabled">
+                  <i class="fa fa-spinner fa-spin mr-2" *ngIf="isDisabled"></i>
                   {{ registry.id ? 'Update' : 'Submit' }}
                 </button>
               </div>
