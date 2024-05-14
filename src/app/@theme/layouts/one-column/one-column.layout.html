@@ -1,0 +1,18 @@
+<nb-layout windowMode [class.web-layout]="url[1] == 'web'">
+  <ng-snotify></ng-snotify>
+  <nb-layout-header fixed *ngIf="url[1] !== 'admin' && url[1] !== 'web'">
+    <ngx-header></ngx-header>
+  </nb-layout-header>
+
+  <nb-sidebar class="menu-sidebar" tag="menu-sidebar" responsive *ngIf="url[1] !== 'admin' && url[1] !== 'web'">
+    <ng-content select="nb-menu"></ng-content>
+  </nb-sidebar>
+
+  <nb-layout-column [class.p-0]="url[1] == 'admin' || url[1] == 'web'">
+    <ng-content select="router-outlet"></ng-content>
+  </nb-layout-column>
+
+  <nb-layout-footer fixed *ngIf="url[1] !== 'admin' && url[1] !== 'web'">
+    <ngx-footer></ngx-footer>
+  </nb-layout-footer>
+</nb-layout>

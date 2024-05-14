@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-lg-12 px-0">
+
+    <nb-card>
+      <nb-card-header>Create User Role</nb-card-header>
+      <nb-card-body>
+        <form #branchForm=ngForm>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label>Name</label>
+              <input type="text" nbInput fullWidth name="role_name" [(ngModel)]="role.role_name">
+              <p class="mt-1 text-danger" [hidden]="!error?.role_name">{{error.role_name}}</p>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Role Description</label>
+              <input type="text" nbInput fullWidth name="role_description" [(ngModel)]="role.role_description">
+              <p class="mt-1 text-danger" [hidden]="!error?.role_description">{{error.role_description}}</p>
+            </div>
+
+            <div class="col-md-12 mt-4">
+              <h6><small>Permissions</small> <button class="btn btn-sm btn-primary float-right" (click)="checkAll()">Check All</button></h6>
+              <hr class="mt-2">
+            </div>
+
+            <ng-container *ngFor="let permission of permissionList | keyvalue;">
+              <div class="col-md-4 mb-3" >
+                <label class="font-weight-bold">{{permission.key}} Module</label>
+                <ul class="pl-0">
+                  <li class="list-unstyled" *ngFor="let el of permissionList[permission.key]; let i = index">
+                    <nb-checkbox [(ngModel)]="el.checked" [value]="el.checked" name="permission-{{permission.key}}-{{i}}">{{el.description}}</nb-checkbox>
+                  </li>
+                </ul>
+              </div>
+            </ng-container>
+
+
+          </div>
+
+
+          <div class="col-md-12 text-right">
+            <hr>
+            <button nbButton status="warning" routerLink="/pages/user-roles/role-list">Cancel</button>
+            <button class="ml-2" type="submit" nbButton status="success" [disabled]="!branchForm.valid" (click)="roleCreate()">Submit</button>
+          </div>
+
+        </form>
+      </nb-card-body>
+    </nb-card>
+
+  </div>
+</div>

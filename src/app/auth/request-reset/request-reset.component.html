@@ -1,0 +1,32 @@
+<div class="row align-items-center vh-100 bg">
+  <div class="col-md-12">
+    <div class="row row-eq-height justify-content-center">
+      <nb-card class="col-10 col-lg-4 px-0 card justify-content-center card-bg p-4 mb-0 card-login-left">
+        <div class="text-center">
+          <img src="assets/images/logo.png" alt="logo" class="large-logo">
+        </div>
+      </nb-card>
+
+      <nb-card class="col-10 col-lg-4 px-0 mb-0 pb-3 card-login-right">
+        <nb-card-header><h4 class="text-center">Send Email for Reset Password</h4></nb-card-header>
+        <nb-card-body>
+
+          <form #requestResetForm=ngForm (ngSubmit)="requestResetSubmit()">
+
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" class="form-control" id="email" name="email" [(ngModel)]="requestReset.email" required>
+              <div class="invalid-feedback">Please enter your email</div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100" [disabled]="!requestResetForm.valid">Send Password Reset Email</button>
+            <small class="float-right">
+              <a routerLink="/admin/login">Back to Login</a>
+            </small>
+          </form>
+
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+</div>

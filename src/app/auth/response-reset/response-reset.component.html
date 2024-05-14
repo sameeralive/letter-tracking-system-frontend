@@ -1,0 +1,41 @@
+<div class="row align-items-center vh-100 bg">
+  <div class="col-md-12">
+    <div class="row row-eq-height justify-content-center">
+      <nb-card class="col-10 col-lg-4 px-0 card justify-content-center card-bg p-4 mb-0 card-login-left">
+        <div class="text-center">
+          <img src="assets/images/logo.png" alt="logo" class="large-logo">
+        </div>
+      </nb-card>
+      <nb-card class="col-10 col-lg-4 px-0 mb-0 pb-3 card-login-right">
+        <nb-card-header><h4 class="text-center">Reset Password</h4></nb-card-header>
+        <nb-card-body>
+
+          <form #resetPasswordForm=ngForm (ngSubmit)="resetPassword()">
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" class="form-control" id="email" name="email" [(ngModel)]="passwordRest.email" required>
+              <p class="text-danger" [hidden]="!error.email">{{error.email}}</p>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="password" name="password" [(ngModel)]="passwordRest.password" required>
+              <p class="text-danger" [hidden]="!error.password">{{error.password}}</p>
+            </div>
+            <div class="form-group">
+              <label for="password_confirmation">Confirm Password</label>
+              <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" [(ngModel)]="passwordRest.password_confirmation" required>
+              <p class="text-danger" [hidden]="!error.password_confirmation">{{error.password_confirmation}}</p>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100" [disabled]="!resetPasswordForm.valid">Change Password</button>
+            <small class="float-right">
+              <a routerLink="/admin/login">Back to Login</a>
+            </small>
+
+          </form>
+
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+</div>

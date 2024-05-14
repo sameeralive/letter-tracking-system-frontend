@@ -1,0 +1,34 @@
+<div class="header-container">
+  <div class="logo-container">
+    <a (click)="toggleSidebar()" href="#" class="sidebar-toggle">
+      <nb-icon icon="menu-2-outline"></nb-icon>
+    </a>
+    <a class="logo" href="#" (click)="navigateHome()">
+      <img src="assets/images/logo.png" alt="" width="150px">
+    </a>
+  </div>
+</div>
+
+<div class="header-container">
+
+  <nav class="navbar navbar-light bg-transparen">
+    <div class="navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link">-->
+<!--            asd-->
+<!--          </a>-->
+<!--        </li>-->
+        <li class="ml-3 nav-item dropdown" [class.show]="isDropdownShow" (click)="isDropdownShow = !isDropdownShow">
+          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Hi, {{authService.authUser?.first_name +' ' + authService.authUser?.last_name}}
+          </a>
+          <div class="dropdown-menu" [class.show]="isDropdownShow" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="#" (click)="logout($event)">logout</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+</div>

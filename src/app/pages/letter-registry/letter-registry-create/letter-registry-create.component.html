@@ -1,0 +1,95 @@
+<div class="row">
+  <div class="col-lg-12 px-0">
+
+    <nb-card>
+      <nb-card-header>Create Letter Registry</nb-card-header>
+      <nb-card-body>
+        <form #rForm=ngForm (ngSubmit)="rForm.form.valid && submit()">
+          <fieldset [disabled]="isDisabled">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="w-100">Date</label>
+                <input class="w-100" nbInput fullWidth name="date" #date="ngModel" [nbDatepicker]="formpicker"
+                       [(ngModel)]="registry.date">
+                <nb-datepicker #formpicker></nb-datepicker>
+<!--                <div class="validation-msg" *ngIf="rForm.submitted && date.invalid">-->
+<!--                  <div *ngIf="date.errors?.['required']">This field is required</div>-->
+<!--                </div>-->
+              </div>
+              <div class="col-md-6 mb-3">
+                <label>Portfolio Number</label>
+                <input type="text" nbInput fullWidth name="portfolio_number" #portfolio_number="ngModel"
+                       [(ngModel)]="registry.portfolio_number">
+<!--                <div class="validation-msg" *ngIf="rForm.submitted && portfolio_number.invalid">-->
+<!--                  <div *ngIf="portfolio_number.errors?.['required']">This field is required</div>-->
+<!--                </div>-->
+              </div>
+              <div class="col-md-6 mb-3">
+                <label>Letter Ref Number</label>
+                <input type="text" nbInput fullWidth name="letter_ref_number" #letter_ref_number="ngModel"
+                       [(ngModel)]="registry.letter_ref_number">
+<!--                <div class="validation-msg" *ngIf="rForm.submitted && letter_ref_number.invalid">-->
+<!--                  <div *ngIf="letter_ref_number.errors?.['required']">This field is required</div>-->
+<!--                </div>-->
+              </div>
+              <div class="col-md-6 mb-3">
+                <label>Contract Number</label>
+                <input type="text" nbInput fullWidth name="contract_number" #contract_number="ngModel" [(ngModel)]="registry.contract_number">
+<!--                <div class="validation-msg" *ngIf="rForm.submitted && contract_number.invalid">-->
+<!--                  <div *ngIf="contract_number.errors?.['required']">This field is required</div>-->
+<!--                </div>-->
+              </div>
+              <div class="col-md-6 mb-3">
+                <label>Project Reference</label>
+                <input type="text" nbInput fullWidth name="project_reference" #project_reference="ngModel" [(ngModel)]="registry.project_reference">
+<!--                <div class="validation-msg" *ngIf="rForm.submitted && project_reference.invalid">-->
+<!--                  <div *ngIf="project_reference.errors?.['required']">This field is required</div>-->
+<!--                </div>-->
+              </div>
+
+              <div class="col-md-12"></div>
+
+              <div class="col-md-6 mb-3">
+                <label class="w-100">Description</label>
+                <textarea nbInput fullWidth [(ngModel)]="registry.description" name="description"></textarea>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label class="w-100">Remarks</label>
+                <textarea nbInput fullWidth [(ngModel)]="registry.remarks" name="remarks"></textarea>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label>Letter</label>
+                <input type="file" (change)="uploadLetter($event)" nbInput fullWidth name="letter" [(ngModel)]="registry.letter">
+              </div>
+
+              <div class="col-md-12 mb-3"></div>
+              <div class="col-md-6 mb-3">
+                <label class="w-100">Reply Date</label>
+                <input class="w-100" nbInput fullWidth name="reply_date" [nbDatepicker]="reply_date"
+                       [(ngModel)]="registry.reply_date">
+                <nb-datepicker #reply_date></nb-datepicker>
+              </div>
+
+              <div class="col-md-12 mb-3"></div>
+              <div class="col-md-6 mb-3">
+                <label>Reply Letter</label>
+                <input type="file" (change)="uploadReplyLetter($event)" nbInput fullWidth name="reply_letter" [(ngModel)]="registry.reply_letter">
+              </div>
+
+
+              <div class="col-md-12 text-right" *ngIf="!isDisabled">
+                <hr>
+                <button class="ml-2" type="submit" nbButton status="success">
+                  {{ registry.id ? 'Update' : 'Submit' }}
+                </button>
+              </div>
+
+            </div>
+          </fieldset>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

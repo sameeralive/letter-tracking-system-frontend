@@ -1,0 +1,66 @@
+<div class="row">
+  <div class="col-lg-12 px-0">
+
+    <nb-card [nbSpinner]="loading">
+      <nb-card-header>User Permission List
+        <a class="btn-1 mr-1 float-right" nbButton outline status="success" [size]="'tiny'" routerLink="/pages/user-permissions/permission-create">
+          Create <i class="nb-plus"></i>
+        </a>
+      </nb-card-header>
+      <nb-card-body>
+
+        <div class="row align-items-end">
+          <div class="col-lg col-md-6 mb-3">
+            <label>ID</label>
+            <input type="number" nbInput fullWidth placeholder="" name="id" [(ngModel)]="search.id" (keyup.enter)="getPermissionList(1)">
+          </div>
+          <div class="col-lg col-md-6 mb-3">
+            <label>Permission Name</label>
+            <input type="text" nbInput fullWidth placeholder="" name="roleName" [(ngModel)]="search.permission_name" (keyup.enter)="getPermissionList(1)">
+          </div>
+          <div class="col-lg col-md-6 mb-3">
+            <label>Permission Decription</label>
+            <input type="text" nbInput fullWidth placeholder="" name="roleName" [(ngModel)]="search.description" (keyup.enter)="getPermissionList(1)">
+          </div>
+          <div class="col-lg col-md-6 mb-3">
+            <button class="btn-1 mr-1" nbButton outline status="warning" (click)="resetFilters()"><i class="fa fa-times"></i></button>
+            <button class="btn-1 mr-1" nbButton outline status="primary" (click)="getPermissionList(1)"><i class="fa fa-search"></i></button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="thead-dark">
+            <tr>
+              <th style="width: 120px">Action</th>
+              <th>ID</th>
+              <th>Permission Name</th>
+              <th>Description</th>
+            </tr>
+            </thead>
+            <tr *ngFor="let el of permissions; let i = index">
+              <td>
+                <div class="buttons-row">
+                  <a routerLink="/pages/user-permissions/permission-edit/{{el.id}}" class="btn-1 mr-1" nbButton [size]="'tiny'" [status]="'primary'"><i class="far fa-edit"></i></a>
+                  <button class="btn-1" nbButton [size]="'tiny'" [status]="'danger'" (click)="deletePermission(el)"><i class="far fa-trash-alt"></i></button>
+                </div>
+              </td>
+              <td>{{el.id}}</td>
+              <td>{{el.permission_name}}</td>
+              <td>{{el.description}}</td>
+            </tr>
+          </table>
+        </div>
+
+        <ngb-pagination class="pull-center"
+          [(page)]="pagination.current_page"
+          [pageSize]="pagination.per_page"
+          [maxSize]="5" [boundaryLinks]="true"
+          [collectionSize]="pagination.total"
+          (pageChange)="getPermissionList($event)"></ngb-pagination>
+
+      </nb-card-body>
+    </nb-card>
+
+  </div>
+</div>

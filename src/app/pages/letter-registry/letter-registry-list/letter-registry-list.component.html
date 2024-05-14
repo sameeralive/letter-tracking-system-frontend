@@ -1,0 +1,86 @@
+<div class="row">
+  <div class="col-lg-12 px-0">
+
+    <nb-card [nbSpinner]="loading">
+      <nb-card-header>Payment List
+<!--        <button *ngxPermissionsOnly="['registry_export_to_excel']" class="btn-1 mr-1 float-right" nbButton outline status="success" [size]="'tiny'" (click)="exportPaymentList()">-->
+<!--          Export XLXS <i class="nb-plus"></i>-->
+<!--        </button>-->
+        <a class="btn-1 mr-1 float-right" nbButton outline status="success" [size]="'tiny'" routerLink="/pages/letter-registry/letter-registry-create">
+          Create <i class="nb-plus"></i>
+        </a>
+      </nb-card-header>
+      <nb-card-body>
+
+        <div class="row align-items-end">
+
+          <div class="col-lg col-md-6 mb-3">
+            <label>ID</label>
+            <input type="number" nbInput fullWidth placeholder="" name="id" [(ngModel)]="search.id">
+          </div>
+          <div class="col-lg col-md-6 mb-3">
+            <label class="w-100">From Date</label>
+            <input nbInput fullWidth [nbDatepicker]="fromDate" [(ngModel)]="search.fromDate" name="fromDate">
+            <nb-datepicker #fromDate></nb-datepicker>
+          </div>
+          <div class="col-lg col-md-6 mb-3">
+            <label class="w-100">To Date</label>
+            <input nbInput fullWidth [nbDatepicker]="toDate" [(ngModel)]="search.toDate" name="toDate">
+            <nb-datepicker #toDate></nb-datepicker>
+          </div>
+
+          <div class="col-lg col-md-6 mb-3">
+            <button class="btn-1 mr-1" nbButton outline status="warning" (click)="clear()"><i class="fa fa-times"></i></button>
+            <button class="btn-1 mr-1" nbButton outline status="primary" (click)="getRegistryList(1)"><i class="fa fa-search"></i></button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="thead-dark">
+            <tr>
+              <th>ID</th>
+              <th>Date</th>
+              <th>Portfolio Number</th>
+              <th>Letter Ref No</th>
+              <th>Description</th>
+              <th>Contract Number</th>
+              <th>Project Reference</th>
+              <th>Remarks</th>
+              <th>Letter</th>
+              <th>Reply Date</th>
+              <th>Reply Letter</th>
+            </tr>
+            </thead>
+            <tr *ngIf="registries.length < 1">
+              <td></td>
+              <td colspan="4">
+                Records not found!
+              </td>
+            </tr>
+            <tr *ngFor="let el of registries; let i = index">
+              <td>#{{el.id}}</td>
+              <td>{{el.date}}</td>
+              <td>{{el.portfolio_number}}</td>
+              <td>{{el.letter_ref_number}}</td>
+              <td>{{el.description}}</td>
+              <td>{{el.contract_number}}</td>
+              <td>{{el.project_reference}}</td>
+              <td>{{el.remarks}}</td>
+              <td><a *ngIf="el.letter" [href]="'http://localhost:8000/storage/letters/' + el.letter" target="_blank">{{el.letter}}</a></td>
+              <td>{{el.reply_date}}</td>
+              <td>{{el.reply_letter}}</td>
+            </tr>
+          </table>
+        </div>
+        <ngb-pagination class="pull-center"
+                        [(page)]="pagination.current_page"
+                        [pageSize]="pagination.per_page"
+                        [maxSize]="5" [boundaryLinks]="true"
+                        [collectionSize]="pagination.total"
+                        (pageChange)="getRegistryList($event)"></ngb-pagination>
+      </nb-card-body>
+    </nb-card>
+
+  </div>
+</div>

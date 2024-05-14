@@ -1,0 +1,93 @@
+<div class="row">
+  <div class="col-md-4">
+    <div class="card-counter primary" [nbSpinner]="loading1">
+      <i class="fa fa-users"></i>
+      <span class="count-numbers">{{summaryCount?.patientCount}}</span>
+      <span class="count-name">All Patients</span>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card-counter danger" [nbSpinner]="loading1">
+      <i class="fa fa-notes-medical"></i>
+      <span class="count-numbers">{{summaryCount?.todayTreatmentCount}}</span>
+      <span class="count-name">Today Treatments</span>
+    </div>
+  </div>
+
+  <div class="col-md-4" *ngxPermissionsOnly="['view_income_dashboard']">
+    <div class="card-counter success" [nbSpinner]="loading1">
+      <i class="far fa-money-bill-alt"></i>
+      <span class="count-numbers">{{summaryCount?.todayIncome | currency: currency}}</span>
+      <span class="count-name">Today Income</span>
+    </div>
+  </div>
+
+  <div class="col-md-6 mt-4" *ngxPermissionsOnly="['view_income_dashboard']">
+    <nb-card class="p-4 mb-0" [nbSpinner]="loading2">
+        <chart [type]="paymentChart.type" [data]="paymentChart.data" [options]="paymentChart.options"></chart>
+    </nb-card>
+
+    <nb-card class="p-4 mb-0 mt-4" [nbSpinner]="loading3">
+      <chart [type]="appointmentChart.type" [data]="appointmentChart.data" [options]="appointmentChart.options"></chart>
+    </nb-card>
+
+  </div>
+
+  <div class="col-md-6 mt-4">
+    <nb-card class="mb-0" [nbSpinner]="loading">
+      <nb-card-header>
+        Today Appointments
+      </nb-card-header>
+      <nb-card-body>
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="thead-dark">
+            <tr>
+              <th></th>
+              <th>ID</th>
+              <th>Time</th>
+              <th>Patient</th>
+              <th>Status</th>
+            </tr>
+            </thead>
+            <tr *ngIf="appointments.length < 1">
+              <td></td>
+              <td colspan="4">
+                No Appointments found
+              </td>
+            </tr>
+            <tr *ngFor="let el of appointments; let i = index">
+              <td>
+                <div class="buttons-row">
+                  <button class="btn-1 mr-1" nbButton [size]="'tiny'" [status]="'primary'" routerLink="/pages/appointments/appointment-edit/{{el.id}}"><i class="far fa-edit"></i></button>
+                  <button class="btn-1" *ngIf="el.status == 'Pending' || el.status == 'Confirmed'" nbButton [size]="'tiny'" [status]="'danger'" (click)="cancelAppointment(el.id)"><i class="fa fa-exclamation-circle"></i></button>
+                </div>
+              </td>
+              <td>#1</td>
+              <td>{{el.time | date:'h:mm a'}}</td>
+              <td>
+                {{el.patient.first_name + ' ' + el.patient.last_name}} <br>
+                {{el.patient.mobile}}<br>
+                {{el.patient.email}}<br>
+              </td>
+              <td>
+                <span class="badge" [ngClass]="{
+                'badge-warning': el.status == 'Pending',
+                'badge-danger': el.status == 'Canceled',
+                'badge-primary': el.status == 'Confirmed',
+                'badge-success': el.status == 'Completed'
+                }">
+                  {{el.status}}
+                </span>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+
+
+</div>
+
