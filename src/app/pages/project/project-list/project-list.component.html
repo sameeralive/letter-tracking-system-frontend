@@ -1,0 +1,78 @@
+<div class="row">
+  <div class="col-lg-12 px-0">
+
+    <nb-card [nbSpinner]="loading">
+      <nb-card-header>Project List
+        <!--        <button *ngxPermissionsOnly="['registry_export_to_excel']" class="btn-1 mr-1 float-right" nbButton outline status="success" [size]="'tiny'" (click)="exportPaymentList()">-->
+        <!--          Export XLXS <i class="nb-plus"></i>-->
+        <!--        </button>-->
+        <a class="btn-1 mr-1 float-right" nbButton outline status="success" [size]="'tiny'" routerLink="/pages/project/project-create">
+          Create <i class="nb-plus"></i>
+        </a>
+      </nb-card-header>
+      <nb-card-body>
+
+        <div class="row align-items-end">
+
+          <div class="col-lg col-md-6 mb-3">
+            <label>ID</label>
+            <input type="number" nbInput fullWidth placeholder="" name="id" [(ngModel)]="search.id">
+          </div>
+          <div class="col-lg col-md-6 mb-3">
+            <label>Name</label>
+            <input type="text" nbInput fullWidth placeholder="" name="name" [(ngModel)]="search.name">
+          </div>
+
+          <div class="col-lg col-md-6 mb-3">
+            <label>Location</label>
+            <input type="text" nbInput fullWidth placeholder="" name="location" [(ngModel)]="search.location">
+          </div>
+
+          <div class="col-lg col-md-6 mb-3">
+            <button class="btn-1 mr-1" nbButton outline status="warning" (click)="clear()"><i class="fa fa-times"></i></button>
+            <button class="btn-1 mr-1" nbButton outline status="primary" (click)="getProjectList(1)"><i class="fa fa-search"></i></button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="thead-dark">
+            <tr>
+              <th>Action</th>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Location</th>
+<!--              <th>Phone Number</th>-->
+            </tr>
+            </thead>
+            <tr *ngIf="projects.length < 1">
+              <td></td>
+              <td colspan="4">
+                Records not found!
+              </td>
+            </tr>
+            <tr *ngFor="let el of projects; let i = index">
+              <td>
+                <div class="buttons-row">
+                  <button class="btn-1 mr-1" nbButton [size]="'tiny'" [status]="'primary'" routerLink="/pages/project/project-edit/{{el.id}}"><i class="far fa-edit"></i></button>
+                  <!--                  <button class="btn-1" nbButton [size]="'tiny'" [status]="'danger'" (click)="disableBranch(el.id)"><i class="fa fa-exclamation-circle"></i></button>-->
+                </div>
+              </td>
+              <td>#{{el.id}}</td>
+              <td>{{el.name}}</td>
+              <td>{{el.location}}</td>
+<!--              <td>{{el.phone_number}}</td>-->
+            </tr>
+          </table>
+        </div>
+        <ngb-pagination class="pull-center"
+                        [(page)]="pagination.current_page"
+                        [pageSize]="pagination.per_page"
+                        [maxSize]="5" [boundaryLinks]="true"
+                        [collectionSize]="pagination.total"
+                        (pageChange)="getProjectList($event)"></ngb-pagination>
+      </nb-card-body>
+    </nb-card>
+
+  </div>
+</div>

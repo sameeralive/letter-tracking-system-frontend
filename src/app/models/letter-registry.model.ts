@@ -1,4 +1,3 @@
-import {int} from "@zxing/library/es2015/customTypings";
 
 export class LetterRegistry {
   id: number;

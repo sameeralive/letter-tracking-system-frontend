@@ -14,8 +14,8 @@ export class LetterRegistryService {
     return this.http.post(root_url + 'registry-list', data);
   }
 
-  createRegistry(data: any) {
-    if (data.id) {
+  createRegistry(data: any, registry: any) {
+    if (registry.id) {
       return this.http.post(root_url + 'registry-update', data);
     } else {
       return this.http.post(root_url + 'registry-create', data);

@@ -24,6 +24,11 @@ const routes: Routes = [{
         .then(m => m.LetterRegistryModule),
     },
     {
+      path: 'project',
+      loadChildren: () => import('./project/project.module')
+        .then(m => m.ProjectModule),
+    },
+    {
       path: 'users',
       loadChildren: () => import('./users/users.module')
         .then(m => m.UsersModule),

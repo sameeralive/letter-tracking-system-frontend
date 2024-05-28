@@ -1,27 +1,27 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
-import {LetterRegistryService} from "../../../services/letter-registry.service";
-import {LetterRegistry} from "../../../models/letter-registry.model";
 import {DatePipe} from "@angular/common";
-import {ValidateInput} from "../../../helpers/form-validation";
 import {ToastrService} from "ngx-toastr";
 import {ActivatedRoute, Router} from "@angular/router";
+import {ValidateInput} from "../../../helpers/form-validation";
+import {Project} from "../../../models/project.model";
+import {ProjectService} from "../../../services/project.service";
 
 @Component({
-  selector: 'ngx-letter-registry-create',
-  templateUrl: './letter-registry-create.component.html',
-  styleUrls: ['./letter-registry-create.component.scss']
+  selector: 'ngx-project-create',
+  templateUrl: './project-create.component.html',
+  styleUrls: ['./project-create.component.scss']
 })
-export class LetterRegistryCreateComponent implements OnInit {
+export class ProjectCreateComponent implements OnInit {
 
-  registry: LetterRegistry = new LetterRegistry();
-  existingData: LetterRegistry = new LetterRegistry();
+  project: Project = new Project();
+  existingData: Project = new Project();
   isDisabled: boolean = false;
   error: any = {};
   letter: any = null;
   replyLetter: any = null;
 
   constructor(
-    private letterRegistryService: LetterRegistryService,
+    private letterProjectService: ProjectService,
     private datePipe: DatePipe,
     private el: ElementRef,
     private toastr: ToastrService,
@@ -40,8 +40,8 @@ export class LetterRegistryCreateComponent implements OnInit {
 
   getRegistries(id: any){
     this.isDisabled = true;
-    this.letterRegistryService.getRegistryData(id).subscribe( (res: any) => {
-      this.registry = res;
+    this.letterProjectService.getProjectData(id).subscribe( (res: any) => {
+      this.project = res;
       this.existingData = res;
       this.isDisabled = false;
     }, error => {
@@ -52,18 +52,10 @@ export class LetterRegistryCreateComponent implements OnInit {
   submit(form: any) {
     if (ValidateInput(form, this.el, this.toastr)) {
       this.isDisabled = true;
-      let formData: FormData = new FormData();
-      this.registry.date = this.datePipe.transform(this.registry.date, 'yyyy-mm-dd');
-      if (this.registry.reply_date) {
-        this.registry.reply_date = this.datePipe.transform(this.registry.reply_date, 'yyyy-mm-dd');
-      }
-      formData.append('data', JSON.stringify(this.registry));
-      formData.append('letter', this.letter);
-      formData.append('reply_letter', this.replyLetter);
-      this.letterRegistryService.createRegistry(formData,this.registry).subscribe({
+      this.letterProjectService.createProject(this.project).subscribe({
         next: (res: any) => {
           this.toastr.success('Successfully Saved!', `Success`);
-          this.router.navigateByUrl('/pages/letter-registry/letter-registry-list')
+          this.router.navigateByUrl('/pages/project/project-list')
         },
         error: () => {
         },

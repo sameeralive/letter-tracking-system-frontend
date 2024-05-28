@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-lg-12 px-0">
+
+    <nb-card>
+      <nb-card-header>Create Letter Registry</nb-card-header>
+      <nb-card-body>
+        <form #rForm=ngForm (ngSubmit)="submit(rForm)">
+          <fieldset [disabled]="isDisabled">
+            <div class="row">
+
+              <div class="col-md-6 mb-3">
+                <label>Name</label>
+                <input type="text" nbInput fullWidth name="name" #name="ngModel"
+                       [(ngModel)]="project.name" required>
+                <!--                <div class="validation-msg" *ngIf="rForm.submitted && portfolio_number.invalid">-->
+                <!--                  <div *ngIf="portfolio_number.errors?.['required']">This field is required</div>-->
+                <!--                </div>-->
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label>Location</label>
+                <input type="text" nbInput fullWidth name="location" #location="ngModel"
+                       [(ngModel)]="project.location" required>
+                <!--                <div class="validation-msg" *ngIf="rForm.submitted && portfolio_number.invalid">-->
+                <!--                  <div *ngIf="portfolio_number.errors?.['required']">This field is required</div>-->
+                <!--                </div>-->
+              </div>
+
+<!--              <div class="col-md-6 mb-3">-->
+<!--                <label>Phone Number</label>-->
+<!--                <input type="text" nbInput fullWidth name="phone_number" #phone_number="ngModel" [(ngModel)]="project.phone_number">-->
+<!--                &lt;!&ndash;                <div class="validation-msg" *ngIf="rForm.submitted && contract_number.invalid">&ndash;&gt;-->
+<!--                &lt;!&ndash;                  <div *ngIf="contract_number.errors?.['required']">This field is required</div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                </div>&ndash;&gt;-->
+<!--              </div>-->
+
+              <div class="col-md-12 text-right" >
+                <hr>
+                <button class="ml-2" type="submit" nbButton status="success" [disabled]="isDisabled">
+                  <i class="fa fa-spinner fa-spin mr-2" *ngIf="isDisabled"></i>
+                  {{ project.id ? 'Update' : 'Submit' }}
+                </button>
+              </div>
+
+            </div>
+          </fieldset>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

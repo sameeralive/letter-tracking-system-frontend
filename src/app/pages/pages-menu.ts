@@ -14,6 +14,13 @@ export const MENU_ITEMS: NbMenuItem[] = [
     hidden: true,
     data: ['users_list']
   },
+  {
+    title: 'Projects',
+    icon: 'file-text-outline',
+    link: '/pages/project/project-list',
+    hidden: true,
+    data: ['users_list']
+  },
 
   {
     title: 'Users',
