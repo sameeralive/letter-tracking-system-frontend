@@ -6,6 +6,7 @@ import {ValidateInput} from "../../../helpers/form-validation";
 import {ToastrService} from "ngx-toastr";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ProjectService} from "../../../services/project.service";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'ngx-letter-registry-create',
@@ -21,6 +22,8 @@ export class LetterRegistryCreateComponent implements OnInit {
   letter: any = null;
   replyLetter: any = null;
   projects: any[] = [];
+  environment = environment;
+
 
   constructor(
     private letterRegistryService: LetterRegistryService,
@@ -94,4 +97,5 @@ export class LetterRegistryCreateComponent implements OnInit {
   uploadReplyLetter(event: any) {
     this.replyLetter = event.target.files[0];
   }
+
 }

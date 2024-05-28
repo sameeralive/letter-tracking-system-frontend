@@ -3,6 +3,7 @@ import {LetterRegistrySearch} from "../../../models/letter-registry.model";
 import {Pagination} from "../../../models/common.model";
 import {LetterRegistryService} from "../../../services/letter-registry.service";
 import {ProjectService} from "../../../services/project.service";
+import {environment, root_url} from "../../../../environments/environment";
 
 @Component({
   selector: 'ngx-letter-registry-list',
@@ -15,6 +16,8 @@ export class LetterRegistryListComponent implements OnInit {
   registries: any[] = [];
   pagination: Pagination = new Pagination();
   projects: any[] = [];
+  environment = environment;
+
 
   constructor(
     private letterRegistryService: LetterRegistryService,
@@ -55,4 +58,5 @@ export class LetterRegistryListComponent implements OnInit {
     this.search = new LetterRegistrySearch();
     this.getRegistryList(1)
   }
+
 }

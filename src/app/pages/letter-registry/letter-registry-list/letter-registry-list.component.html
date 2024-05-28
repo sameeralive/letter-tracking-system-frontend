@@ -2,7 +2,7 @@
   <div class="col-lg-12 px-0">
 
     <nb-card [nbSpinner]="loading">
-      <nb-card-header>Payment List
+      <nb-card-header>Registry List
 <!--        <button *ngxPermissionsOnly="['registry_export_to_excel']" class="btn-1 mr-1 float-right" nbButton outline status="success" [size]="'tiny'" (click)="exportPaymentList()">-->
 <!--          Export XLXS <i class="nb-plus"></i>-->
 <!--        </button>-->
@@ -94,9 +94,9 @@
               <td>{{el.project && el.project.name ? el.project.name : ''}}</td>
               <td>{{el.project_reference}}</td>
               <td>{{el.remarks}}</td>
-              <td><a *ngIf="el.letter" [href]="'http://localhost:8000/storage/letters/' + el.letter" target="_blank">{{el.letter}}</a></td>
+              <td><a *ngIf="el.letter" [href]="environment.baseUrl + 'storage/letters/' + el.letter" target="_blank">{{el.letter}}</a></td>
               <td>{{el.reply_date}}</td>
-              <td><a *ngIf="el.reply_letter" [href]="'http://localhost:8000/storage/letters/' + el.reply_letter" target="_blank">{{el.reply_letter}}</a></td>
+              <td><a *ngIf="el.reply_letter" [href]="environment.baseUrl + 'storage/letters/' + el.reply_letter" target="_blank">{{el.reply_letter}}</a></td>
             </tr>
           </table>
         </div>

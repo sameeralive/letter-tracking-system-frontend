@@ -67,7 +67,7 @@
               <div class="col-md-6 mb-3">
                 <label>Letter</label>
                 <div *ngIf="registry.id > 0 && registry.letter != ''">
-                  <a [href]="'http://localhost:8000/storage/letters/' + existingData.letter" target="_blank">{{existingData.letter}}</a>
+                  <a [href]="environment.baseUrl + 'storage/letters/' + existingData.letter" target="_blank">{{existingData.letter}}</a>
                 </div>
                 <input type="file" (change)="uploadLetter($event)" nbInput fullWidth name="letter" [(ngModel)]="registry.letter">
               </div>
@@ -84,7 +84,7 @@
               <div class="col-md-6 mb-3">
                 <label>Reply Letter</label>
                 <div  *ngIf="registry.id > 0 && registry.reply_letter != ''">
-                  <a [href]="'http://localhost:8000/storage/letters/' + existingData.reply_letter" target="_blank">{{existingData.reply_letter}}</a>
+                  <a [href]="environment.base + 'storage/letters/' + existingData.reply_letter" target="_blank">{{existingData.reply_letter}}</a>
                 </div>
                 <input type="file" (change)="uploadReplyLetter($event)" nbInput fullWidth name="reply_letter" [(ngModel)]="registry.reply_letter">
               </div>

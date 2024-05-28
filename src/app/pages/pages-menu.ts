@@ -36,10 +36,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'User Roles',
         link: '/pages/user-roles/role-list',
       },
-      {
-        title: 'User Permissions',
-        link: '/pages/user-permissions/permission-list',
-      },
+      // {
+      //   title: 'User Permissions',
+      //   link: '/pages/user-permissions/permission-list',
+      // },
     ],
   },
 

@@ -11,7 +11,7 @@ const routes: Routes = [
     canActivate: [NgxPermissionsGuard],
     data: {
       permissions: {
-        only: ['user_permission_list'],
+        only: ['letter_registry_list'],
         redirectTo: '/pages/dashboard'
       }
     }
@@ -22,7 +22,7 @@ const routes: Routes = [
     canActivate: [NgxPermissionsGuard],
     data: {
       permissions: {
-        only: ['user_permission_list'],
+        only: ['letter_registry_create'],
         redirectTo: '/pages/dashboard'
       }
     }
@@ -33,7 +33,7 @@ const routes: Routes = [
     canActivate: [NgxPermissionsGuard],
     data: {
       permissions: {
-        only: ['user_permission_list'],
+        only: ['letter_registry_edit'],
         redirectTo: '/pages/dashboard'
       }
     }
