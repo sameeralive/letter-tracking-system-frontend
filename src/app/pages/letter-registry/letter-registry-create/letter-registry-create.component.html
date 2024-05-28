@@ -39,6 +39,12 @@
 <!--                </div>-->
               </div>
               <div class="col-md-6 mb-3">
+                <label>Project</label>
+                <nb-select placeholder="Select Project" class="w-100" name="project_id" fullWidth [(ngModel)]="registry.project_id">
+                  <nb-option *ngFor="let el of projects" [value]="el.id">{{el.name}}</nb-option>
+                </nb-select>
+              </div>
+              <div class="col-md-6 mb-3">
                 <label>Project Reference</label>
                 <input type="text" nbInput fullWidth name="project_reference" #project_reference="ngModel" [(ngModel)]="registry.project_reference">
 <!--                <div class="validation-msg" *ngIf="rForm.submitted && project_reference.invalid">-->

@@ -20,11 +20,21 @@
           </div>
           <div class="col-lg col-md-6 mb-3">
             <label>Portfolio Number</label>
-            <input type="text" nbInput fullWidth placeholder="" name="id" [(ngModel)]="search.portfolio_number">
+            <input type="text" nbInput fullWidth placeholder="" name="portfolio_number" [(ngModel)]="search.portfolio_number">
           </div>
           <div class="col-lg col-md-6 mb-3">
             <label>Letter Ref Number</label>
-            <input type="text" nbInput fullWidth placeholder="" name="id" [(ngModel)]="search.letter_ref_number">
+            <input type="text" nbInput fullWidth placeholder="" name="letter_ref_number" [(ngModel)]="search.letter_ref_number">
+          </div>
+          <div class="col-lg col-md-6 mb-3">
+            <label>Contract Number</label>
+            <input type="text" nbInput fullWidth placeholder="" name="id" [(ngModel)]="search.contract_number">
+          </div>
+          <div class="col-lg col-md-6 mb-3">
+            <label>Project</label>
+            <nb-select placeholder="Select Project" class="w-100" name="project_id" fullWidth [(ngModel)]="search.project_id">
+              <nb-option *ngFor="let el of projects" [value]="el.id">{{el.name}}</nb-option>
+            </nb-select>
           </div>
           <div class="col-lg col-md-6 mb-3">
             <label class="w-100">From Date</label>
@@ -54,6 +64,7 @@
               <th>Letter Ref No</th>
               <th>Description</th>
               <th>Contract Number</th>
+              <th>Project</th>
               <th>Project Reference</th>
               <th>Remarks</th>
               <th>Letter</th>
@@ -80,6 +91,7 @@
               <td>{{el.letter_ref_number}}</td>
               <td>{{el.description}}</td>
               <td>{{el.contract_number}}</td>
+              <td>{{el.project && el.project.name ? el.project.name : ''}}</td>
               <td>{{el.project_reference}}</td>
               <td>{{el.remarks}}</td>
               <td><a *ngIf="el.letter" [href]="'http://localhost:8000/storage/letters/' + el.letter" target="_blank">{{el.letter}}</a></td>

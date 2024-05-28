@@ -5,6 +5,7 @@ import {DatePipe} from "@angular/common";
 import {ValidateInput} from "../../../helpers/form-validation";
 import {ToastrService} from "ngx-toastr";
 import {ActivatedRoute, Router} from "@angular/router";
+import {ProjectService} from "../../../services/project.service";
 
 @Component({
   selector: 'ngx-letter-registry-create',
@@ -19,6 +20,7 @@ export class LetterRegistryCreateComponent implements OnInit {
   error: any = {};
   letter: any = null;
   replyLetter: any = null;
+  projects: any[] = [];
 
   constructor(
     private letterRegistryService: LetterRegistryService,
@@ -27,15 +29,26 @@ export class LetterRegistryCreateComponent implements OnInit {
     private toastr: ToastrService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
+    private projectService: ProjectService,
   ) { }
 
   ngOnInit(): void {
+    this.getAllProjects();
     this.activatedRoute.params.subscribe(
       params => {
         if (params.id) {
           this.getRegistries(params.id);
         }
       });
+  }
+
+  getAllProjects(){
+    this.projectService.getAllProjects().subscribe({
+      next: (data: any) => {
+        this.projects = data;
+      },
+      error: () => {}
+    })
   }
 
   getRegistries(id: any){

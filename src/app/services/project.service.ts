@@ -14,6 +14,10 @@ export class ProjectService {
     return this.http.post(root_url + 'project-list', data);
   }
 
+  getAllProjects() {
+    return this.http.get(root_url + 'all-projects');
+  }
+
   createProject(data: any) {
     if (data.id) {
       return this.http.post(root_url + 'project-update', data);

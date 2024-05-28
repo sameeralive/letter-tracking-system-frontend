@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {LetterRegistrySearch} from "../../../models/letter-registry.model";
 import {Pagination} from "../../../models/common.model";
 import {LetterRegistryService} from "../../../services/letter-registry.service";
+import {ProjectService} from "../../../services/project.service";
 
 @Component({
   selector: 'ngx-letter-registry-list',
@@ -13,11 +14,14 @@ export class LetterRegistryListComponent implements OnInit {
   search: LetterRegistrySearch = new LetterRegistrySearch();
   registries: any[] = [];
   pagination: Pagination = new Pagination();
-
+  projects: any[] = [];
 
   constructor(
-    private letterRegistryService: LetterRegistryService
-  ) { }
+    private letterRegistryService: LetterRegistryService,
+    private projectService: ProjectService
+  ) {
+    this.getAllProjects();
+  }
 
   ngOnInit(): void {
     this.getRegistryList(1);
@@ -35,6 +39,16 @@ export class LetterRegistryListComponent implements OnInit {
       // this.handleError(error);
       this.loading = false;
     });
+  }
+
+
+  getAllProjects(){
+    this.projectService.getAllProjects().subscribe({
+      next: (data: any) => {
+        this.projects = data;
+      },
+      error: () => {}
+    })
   }
 
   clear() {
