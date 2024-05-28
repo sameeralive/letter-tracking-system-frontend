@@ -6,6 +6,9 @@ import {NbToastrService} from "@nebular/theme";
 import Swal from "sweetalert2";
 import {Currency} from "../../common/arrays";
 import {DashboardServiceService} from "../../services/dashboard-service.service";
+import {environment} from "../../../environments/environment";
+import {LetterRegistryService} from "../../services/letter-registry.service";
+import {LetterRegistrySearch} from "../../models/letter-registry.model";
 
 @Component({
   selector: 'ngx-dashboard',
@@ -14,18 +17,21 @@ import {DashboardServiceService} from "../../services/dashboard-service.service"
 })
 export class DashboardComponent implements OnInit {
 
-  branch:any;
+  branch: any;
   date = new Date();
-  appointments: any = [];
+  registries: any[] = [];
   loading: boolean = false;
   loading1: boolean = false;
   loading2: boolean = false;
   loading3: boolean = false;
-  pagination: Pagination;
+  pagination: Pagination = new Pagination();
   summaryCount: any;
+  projectCount: any;
   last7DaysIncom: any;
   last7DaysAppointments: any;
   currency = Currency;
+  search: LetterRegistrySearch = new LetterRegistrySearch();
+
 
   paymentChart: any = {}
   appointmentChart: any = {}
@@ -35,25 +41,52 @@ export class DashboardComponent implements OnInit {
     private datePipe: DatePipe,
     private toastrService: NbToastrService,
     private dashboardServiceService: DashboardServiceService,
+    private letterRegistryService: LetterRegistryService,
   ) {
   }
 
   ngOnInit(): void {
-
+    this.getSummaryCount();
+    this.getProjectCount();
+    this.getRegistryList(1);
   }
 
+  getRegistryList(event: number) {
+    this.loading = true;
+    this.pagination.current_page = event;
+    this.pagination.filter = this.search;
+    this.letterRegistryService.getRegistryList(this.pagination).subscribe((response: any) => {
+      this.registries = response.data;
+      this.pagination.total = response.total;
+      this.loading = false;
+    }, error => {
+      // this.handleError(error);
+      this.loading = false;
+    });
+  }
 
-  // getSummaryCount() {
-  //   this.loading1 = true;
-  //   this.dashboardServiceService.getSummaryCount({branch: this.branch}).subscribe(response => {
-  //     this.summaryCount = response;
-  //     this.loading1 = false;
-  //   }, error => {
-  //     this.handleError(error);
-  //     this.loading1 = false;
-  //   });
-  // }
-  //
+  getSummaryCount() {
+    this.loading1 = true;
+    this.dashboardServiceService.getSummaryCount({branch: this.branch}).subscribe(response => {
+      this.summaryCount = response;
+      this.loading1 = false;
+    }, error => {
+      // this.handleError(error);
+      this.loading1 = false;
+    });
+  }
+
+  getProjectCount() {
+    this.loading1 = true;
+    this.dashboardServiceService.getProjectCount().subscribe(response => {
+      this.projectCount = response;
+      this.loading1 = false;
+    }, error => {
+      // this.handleError(error);
+      this.loading1 = false;
+    });
+  }
+
   // getLast7DaysIncome() {
   //   this.loading2 = true;
   //   this.dashboardServiceService.getLast7DaysIncome({branch: this.branch}).subscribe(response => {
@@ -144,6 +177,5 @@ export class DashboardComponent implements OnInit {
   }
 
 
-
-
+  protected readonly environment = environment;
 }

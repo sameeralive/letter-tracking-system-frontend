@@ -13,7 +13,11 @@ export class DashboardServiceService {
   }
 
   getSummaryCount(branch_id) {
-    return this.http.post(root_url + 'dashboard-count-list', branch_id);
+    return this.http.post(root_url + 'registry-dashboard-count', branch_id);
+  }
+
+  getProjectCount() {
+    return this.http.get(root_url + 'project-dashboard-count');
   }
 
   getLast7DaysIncome(branch_id) {
