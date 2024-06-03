@@ -2,14 +2,14 @@
   <div class="col-md-4">
     <div class="card-counter primary" [nbSpinner]="loading1">
       <i class="fa fa-layer-group"></i>
-      <span class="count-numbers">{{summaryCount?.allRegistryCount}}</span>
+      <span class="count-numbers">{{ summaryCount?.allRegistryCount }}</span>
       <span class="count-name">All Letter Registries</span>
     </div>
   </div>
   <div class="col-md-4">
     <div class="card-counter danger" [nbSpinner]="loading1">
       <i class="fa fa-folder-open"></i>
-      <span class="count-numbers">{{summaryCount?.todayRegistryCount}}</span>
+      <span class="count-numbers">{{ summaryCount?.todayRegistryCount }}</span>
       <span class="count-name">Today Letter Registries</span>
     </div>
   </div>
@@ -17,88 +17,111 @@
   <div class="col-md-4">
     <div class="card-counter success" [nbSpinner]="loading1">
       <i class="fa fa-project-diagram"></i>
-      <span class="count-numbers">{{projectCount?.projectCount}}</span>
+      <span class="count-numbers">{{ projectCount?.projectCount }}</span>
       <span class="count-name">Projects</span>
     </div>
   </div>
 
-<!--  <div class="col-md-4">-->
-<!--    <div class="card-counter success" [nbSpinner]="loading1">-->
-<!--      <i class="far fa-money-bill-alt"></i>-->
-<!--      <span class="count-numbers">{{summaryCount?.todayIncome | currency: currency}}</span>-->
-<!--      <span class="count-name">Today Income</span>-->
-<!--    </div>-->
-<!--  </div>-->
+  <!--  <div class="col-md-4">-->
+  <!--    <div class="card-counter success" [nbSpinner]="loading1">-->
+  <!--      <i class="far fa-money-bill-alt"></i>-->
+  <!--      <span class="count-numbers">{{summaryCount?.todayIncome | currency: currency}}</span>-->
+  <!--      <span class="count-name">Today Income</span>-->
+  <!--    </div>-->
+  <!--  </div>-->
 
   <div class="col-md-6 mt-4" *ngxPermissionsOnly="['view_income_dashboard']">
     <nb-card class="p-4 mb-0" [nbSpinner]="loading2">
-        <chart [type]="paymentChart.type" [data]="paymentChart.data" [options]="paymentChart.options"></chart>
+      <chart
+        [type]="paymentChart.type"
+        [data]="paymentChart.data"
+        [options]="paymentChart.options"
+      ></chart>
     </nb-card>
 
     <nb-card class="p-4 mb-0 mt-4" [nbSpinner]="loading3">
-      <chart [type]="appointmentChart.type" [data]="appointmentChart.data" [options]="appointmentChart.options"></chart>
+      <chart
+        [type]="appointmentChart.type"
+        [data]="appointmentChart.data"
+        [options]="appointmentChart.options"
+      ></chart>
     </nb-card>
-
   </div>
 
   <div class="col-md-12 mt-4">
     <nb-card class="mb-0" [nbSpinner]="loading">
-      <nb-card-header>
-        Recent Letter Registries
-      </nb-card-header>
+      <nb-card-header> Recent Letter Registries </nb-card-header>
       <nb-card-body>
         <div class="table-responsive">
           <table class="table">
             <thead class="thead-dark">
-            <tr>
-<!--              <th>Action</th>-->
-              <th>ID</th>
-              <th>Date</th>
-              <th>Portfolio Number</th>
-              <th>Letter Ref No</th>
-              <th>Description</th>
-              <th>Contract Number</th>
-              <th>Project</th>
-              <th>Project Reference</th>
-              <th>Remarks</th>
-              <th>Letter</th>
-              <th>Reply Date</th>
-              <th>Reply Letter</th>
-            </tr>
+              <tr>
+                <!--              <th>Action</th>-->
+                <th>ID</th>
+                <th>Date</th>
+                <th>Portfolio Number</th>
+                <th>Letter Ref No</th>
+                <th>Description</th>
+                <th>Contract Number</th>
+                <th>Project</th>
+                <th>Project Reference</th>
+                <th>Remarks</th>
+                <th>Letter</th>
+                <th>Reply Date</th>
+                <th>Reply Letter</th>
+              </tr>
             </thead>
             <tr *ngIf="registries.length < 1">
               <td></td>
-              <td colspan="4">
-                Records not found!
-              </td>
+              <td colspan="4">Records not found!</td>
             </tr>
             <tr *ngFor="let el of registries; let i = index">
-<!--              <td>-->
-<!--                <div class="buttons-row">-->
-<!--&lt;!&ndash;                  <button class="btn-1 mr-1" nbButton [size]="'tiny'" [status]="'primary'" routerLink="/pages/letter-registry/letter-registry-edit/{{el.id}}"><i class="far fa-edit"></i></button>&ndash;&gt;-->
-<!--                  &lt;!&ndash;                  <button class="btn-1" nbButton [size]="'tiny'" [status]="'danger'" (click)="disableBranch(el.id)"><i class="fa fa-exclamation-circle"></i></button>&ndash;&gt;-->
-<!--                </div>-->
-<!--              </td>-->
-              <td>#{{el.id}}</td>
-              <td>{{el.date}}</td>
-              <td>{{el.portfolio_number}}</td>
-              <td>{{el.letter_ref_number}}</td>
-              <td>{{el.description}}</td>
-              <td>{{el.contract_number}}</td>
-              <td>{{el.project && el.project.name ? el.project.name : ''}}</td>
-              <td>{{el.project_reference}}</td>
-              <td>{{el.remarks}}</td>
-              <td><a *ngIf="el.letter" [href]="environment.baseUrl + 'storage/letters/' + el.letter" target="_blank">{{el.letter}}</a></td>
-              <td>{{el.reply_date}}</td>
-              <td><a *ngIf="el.reply_letter" [href]="environment.baseUrl + 'storage/letters/' + el.reply_letter" target="_blank">{{el.reply_letter}}</a></td>
+              <!--              <td>-->
+              <!--                <div class="buttons-row">-->
+              <!--&lt;!&ndash;                  <button class="btn-1 mr-1" nbButton [size]="'tiny'" [status]="'primary'" routerLink="/pages/letter-registry/letter-registry-edit/{{el.id}}"><i class="far fa-edit"></i></button>&ndash;&gt;-->
+              <!--                  &lt;!&ndash;                  <button class="btn-1" nbButton [size]="'tiny'" [status]="'danger'" (click)="disableBranch(el.id)"><i class="fa fa-exclamation-circle"></i></button>&ndash;&gt;-->
+              <!--                </div>-->
+              <!--              </td>-->
+              <td>#{{ el.id }}</td>
+              <td>{{ el.date }}</td>
+              <td>{{ el.portfolio_number }}</td>
+              <td>{{ el.letter_ref_number }}</td>
+              <td>{{ el.description }}</td>
+              <td>{{ el.contract_number }}</td>
+              <td>
+                {{ el.project && el.project.name ? el.project.name : "" }}
+              </td>
+              <td>{{ el.project_reference }}</td>
+              <td>{{ el.remarks }}</td>
+              <td>
+                <a
+                  *ngIf="el.letter"
+                  [href]="
+                    environment.baseUrl +
+                    'storage/app/public/letters/' +
+                    el.letter
+                  "
+                  target="_blank"
+                  >{{ el.letter }}</a
+                >
+              </td>
+              <td>{{ el.reply_date }}</td>
+              <td>
+                <a
+                  *ngIf="el.reply_letter"
+                  [href]="
+                    environment.baseUrl +
+                    'storage/app/public/letters/' +
+                    el.reply_letter
+                  "
+                  target="_blank"
+                  >{{ el.reply_letter }}</a
+                >
+              </td>
             </tr>
           </table>
         </div>
       </nb-card-body>
     </nb-card>
   </div>
-
-
-
 </div>
-

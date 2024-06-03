@@ -1,113 +1,216 @@
 <div class="row">
   <div class="col-lg-12 px-0">
-
     <nb-card [nbSpinner]="loading">
-      <nb-card-header>Registry List
-<!--        <button *ngxPermissionsOnly="['registry_export_to_excel']" class="btn-1 mr-1 float-right" nbButton outline status="success" [size]="'tiny'" (click)="exportPaymentList()">-->
-<!--          Export XLXS <i class="nb-plus"></i>-->
-<!--        </button>-->
-        <a class="btn-1 mr-1 float-right" nbButton outline status="success" [size]="'tiny'" routerLink="/pages/letter-registry/letter-registry-create">
+      <nb-card-header
+        >Registry List
+        <!--        <button *ngxPermissionsOnly="['registry_export_to_excel']" class="btn-1 mr-1 float-right" nbButton outline status="success" [size]="'tiny'" (click)="exportPaymentList()">-->
+        <!--          Export XLXS <i class="nb-plus"></i>-->
+        <!--        </button>-->
+        <a
+          class="btn-1 mr-1 float-right"
+          nbButton
+          outline
+          status="success"
+          [size]="'tiny'"
+          routerLink="/pages/letter-registry/letter-registry-create"
+        >
           Create <i class="nb-plus"></i>
         </a>
       </nb-card-header>
       <nb-card-body>
-
         <div class="row align-items-end">
-
           <div class="col-lg col-md-6 mb-3">
             <label>ID</label>
-            <input type="number" nbInput fullWidth placeholder="" name="id" [(ngModel)]="search.id">
+            <input
+              type="number"
+              nbInput
+              fullWidth
+              placeholder=""
+              name="id"
+              [(ngModel)]="search.id"
+            />
           </div>
           <div class="col-lg col-md-6 mb-3">
             <label>Portfolio Number</label>
-            <input type="text" nbInput fullWidth placeholder="" name="portfolio_number" [(ngModel)]="search.portfolio_number">
+            <input
+              type="text"
+              nbInput
+              fullWidth
+              placeholder=""
+              name="portfolio_number"
+              [(ngModel)]="search.portfolio_number"
+            />
           </div>
           <div class="col-lg col-md-6 mb-3">
             <label>Letter Ref Number</label>
-            <input type="text" nbInput fullWidth placeholder="" name="letter_ref_number" [(ngModel)]="search.letter_ref_number">
+            <input
+              type="text"
+              nbInput
+              fullWidth
+              placeholder=""
+              name="letter_ref_number"
+              [(ngModel)]="search.letter_ref_number"
+            />
           </div>
           <div class="col-lg col-md-6 mb-3">
             <label>Contract Number</label>
-            <input type="text" nbInput fullWidth placeholder="" name="id" [(ngModel)]="search.contract_number">
+            <input
+              type="text"
+              nbInput
+              fullWidth
+              placeholder=""
+              name="id"
+              [(ngModel)]="search.contract_number"
+            />
           </div>
           <div class="col-lg col-md-6 mb-3">
             <label>Project</label>
-            <nb-select placeholder="Select Project" class="w-100" name="project_id" fullWidth [(ngModel)]="search.project_id">
-              <nb-option *ngFor="let el of projects" [value]="el.id">{{el.name}}</nb-option>
+            <nb-select
+              placeholder="Select Project"
+              class="w-100"
+              name="project_id"
+              fullWidth
+              [(ngModel)]="search.project_id"
+            >
+              <nb-option *ngFor="let el of projects" [value]="el.id">{{
+                el.name
+              }}</nb-option>
             </nb-select>
           </div>
           <div class="col-lg col-md-6 mb-3">
             <label class="w-100">From Date</label>
-            <input nbInput fullWidth [nbDatepicker]="fromDate" [(ngModel)]="search.fromDate" name="fromDate">
+            <input
+              nbInput
+              fullWidth
+              [nbDatepicker]="fromDate"
+              [(ngModel)]="search.fromDate"
+              name="fromDate"
+            />
             <nb-datepicker #fromDate></nb-datepicker>
           </div>
           <div class="col-lg col-md-6 mb-3">
             <label class="w-100">To Date</label>
-            <input nbInput fullWidth [nbDatepicker]="toDate" [(ngModel)]="search.toDate" name="toDate">
+            <input
+              nbInput
+              fullWidth
+              [nbDatepicker]="toDate"
+              [(ngModel)]="search.toDate"
+              name="toDate"
+            />
             <nb-datepicker #toDate></nb-datepicker>
           </div>
 
           <div class="col-lg col-md-6 mb-3">
-            <button class="btn-1 mr-1" nbButton outline status="warning" (click)="clear()"><i class="fa fa-times"></i></button>
-            <button class="btn-1 mr-1" nbButton outline status="primary" (click)="getRegistryList(1)"><i class="fa fa-search"></i></button>
+            <button
+              class="btn-1 mr-1"
+              nbButton
+              outline
+              status="warning"
+              (click)="clear()"
+            >
+              <i class="fa fa-times"></i>
+            </button>
+            <button
+              class="btn-1 mr-1"
+              nbButton
+              outline
+              status="primary"
+              (click)="getRegistryList(1)"
+            >
+              <i class="fa fa-search"></i>
+            </button>
           </div>
         </div>
 
         <div class="table-responsive">
           <table class="table">
             <thead class="thead-dark">
-            <tr>
-              <th>Action</th>
-              <th>ID</th>
-              <th>Date</th>
-              <th>Portfolio Number</th>
-              <th>Letter Ref No</th>
-              <th>Description</th>
-              <th>Contract Number</th>
-              <th>Project</th>
-              <th>Project Reference</th>
-              <th>Remarks</th>
-              <th>Letter</th>
-              <th>Reply Date</th>
-              <th>Reply Letter</th>
-            </tr>
+              <tr>
+                <th>Action</th>
+                <th>ID</th>
+                <th>Date</th>
+                <th>Portfolio Number</th>
+                <th>Letter Ref No</th>
+                <th>Description</th>
+                <th>Contract Number</th>
+                <th>Project</th>
+                <th>Project Reference</th>
+                <th>Remarks</th>
+                <th>Letter</th>
+                <th>Reply Date</th>
+                <th>Reply Letter</th>
+              </tr>
             </thead>
             <tr *ngIf="registries.length < 1">
               <td></td>
-              <td colspan="4">
-                Records not found!
-              </td>
+              <td colspan="4">Records not found!</td>
             </tr>
             <tr *ngFor="let el of registries; let i = index">
               <td>
                 <div class="buttons-row">
-                  <button class="btn-1 mr-1" nbButton [size]="'tiny'" [status]="'primary'" routerLink="/pages/letter-registry/letter-registry-edit/{{el.id}}"><i class="far fa-edit"></i></button>
-<!--                  <button class="btn-1" nbButton [size]="'tiny'" [status]="'danger'" (click)="disableBranch(el.id)"><i class="fa fa-exclamation-circle"></i></button>-->
+                  <button
+                    class="btn-1 mr-1"
+                    nbButton
+                    [size]="'tiny'"
+                    [status]="'primary'"
+                    routerLink="/pages/letter-registry/letter-registry-edit/{{
+                      el.id
+                    }}"
+                  >
+                    <i class="far fa-edit"></i>
+                  </button>
+                  <!--                  <button class="btn-1" nbButton [size]="'tiny'" [status]="'danger'" (click)="disableBranch(el.id)"><i class="fa fa-exclamation-circle"></i></button>-->
                 </div>
               </td>
-              <td>#{{el.id}}</td>
-              <td>{{el.date}}</td>
-              <td>{{el.portfolio_number}}</td>
-              <td>{{el.letter_ref_number}}</td>
-              <td>{{el.description}}</td>
-              <td>{{el.contract_number}}</td>
-              <td>{{el.project && el.project.name ? el.project.name : ''}}</td>
-              <td>{{el.project_reference}}</td>
-              <td>{{el.remarks}}</td>
-              <td><a *ngIf="el.letter" [href]="environment.baseUrl + 'storage/letters/' + el.letter" target="_blank">{{el.letter}}</a></td>
-              <td>{{el.reply_date}}</td>
-              <td><a *ngIf="el.reply_letter" [href]="environment.baseUrl + 'storage/letters/' + el.reply_letter" target="_blank">{{el.reply_letter}}</a></td>
+              <td>#{{ el.id }}</td>
+              <td>{{ el.date }}</td>
+              <td>{{ el.portfolio_number }}</td>
+              <td>{{ el.letter_ref_number }}</td>
+              <td>{{ el.description }}</td>
+              <td>{{ el.contract_number }}</td>
+              <td>
+                {{ el.project && el.project.name ? el.project.name : "" }}
+              </td>
+              <td>{{ el.project_reference }}</td>
+              <td>{{ el.remarks }}</td>
+              <td>
+                <a
+                  *ngIf="el.letter"
+                  [href]="
+                    environment.baseUrl +
+                    'storage/app/public/letters/' +
+                    el.letter
+                  "
+                  target="_blank"
+                  >{{ el.letter }}</a
+                >
+              </td>
+              <td>{{ el.reply_date }}</td>
+              <td>
+                <a
+                  *ngIf="el.reply_letter"
+                  [href]="
+                    environment.baseUrl +
+                    'storage/app/public/letters/' +
+                    el.reply_letter
+                  "
+                  target="_blank"
+                  >{{ el.reply_letter }}</a
+                >
+              </td>
             </tr>
           </table>
         </div>
-        <ngb-pagination class="pull-center"
-                        [(page)]="pagination.current_page"
-                        [pageSize]="pagination.per_page"
-                        [maxSize]="5" [boundaryLinks]="true"
-                        [collectionSize]="pagination.total"
-                        (pageChange)="getRegistryList($event)"></ngb-pagination>
+        <ngb-pagination
+          class="pull-center"
+          [(page)]="pagination.current_page"
+          [pageSize]="pagination.per_page"
+          [maxSize]="5"
+          [boundaryLinks]="true"
+          [collectionSize]="pagination.total"
+          (pageChange)="getRegistryList($event)"
+        ></ngb-pagination>
       </nb-card-body>
     </nb-card>
-
   </div>
 </div>
